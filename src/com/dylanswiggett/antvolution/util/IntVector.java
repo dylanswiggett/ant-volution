@@ -8,6 +8,10 @@ public class IntVector {
 		this.y = y;
 	}
 	
+	public IntVector(Vector v){
+		this(v.x, v.y);
+	}
+	
 	public IntVector(){
 		this(0, 0);
 	}
@@ -22,5 +26,9 @@ public class IntVector {
 	
 	public IntVector sub(IntVector v){
 		return new IntVector(x - v.x, y - v.y);
+	}
+	
+	public Vector toVector() {
+		return new Vector(x, y);
 	}
 }

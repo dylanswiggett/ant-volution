@@ -25,7 +25,7 @@ public class Vector {
 		return x * v.y - y * v.x;
 	}
 
-	public Vector plus(Vector v) {
+	public Vector add(Vector v) {
 		return new Vector(x + v.x, y + v.y);
 	}
 	
@@ -49,7 +49,7 @@ public class Vector {
 	}
 
 	public Vector minus(Vector v) {
-		return plus(v.scale(-1));
+		return add(v.scale(-1));
 	}
 	
 	public void subtractInPlace(Vector v) {

@@ -7,16 +7,10 @@ import com.dylanswiggett.antvolution.render.View;
 public class Main {
 	
 	// Pre-set values for now.
-	private static final int WIDTH = 750;
-	private static final int HEIGHT = 500;
+	private static final int WIDTH = 1000;
+	private static final int HEIGHT = 800;
 	
 	public static void main(String[] args){
-		
-		LookingDirection dir = new LookingDirection(1);
-		System.out.println(dir.asVector());
-		
-		//System.exit(0);
-		
 		View view = new View(WIDTH, HEIGHT);
 		Controller controller = new Controller();
 		Model model = new Model();

@@ -15,6 +15,8 @@ public class Controller implements Runnable {
 	private double cameraDistance;
 	
 	private float FOV;
+	
+	private int resetCooldown;
 
 	public Controller() {
 		cameraPosition = new Vector(0, 0);
@@ -50,6 +52,12 @@ public class Controller implements Runnable {
 				cameraPosition.addInPlace(new Vector(0, -cameraSpeed));
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP))
 				cameraPosition.addInPlace(new Vector(0, cameraSpeed));
+			
+			if (Keyboard.isKeyDown(Keyboard.KEY_R) && resetCooldown == 0) {
+				model.setup();
+				resetCooldown = 2000000;
+			} else if (resetCooldown > 0)
+				resetCooldown--;
 			
 			if (Mouse.isButtonDown(0)){
 				

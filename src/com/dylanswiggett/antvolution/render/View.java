@@ -1,5 +1,7 @@
 package com.dylanswiggett.antvolution.render;
 
+import java.awt.Color;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -8,12 +10,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
 import com.dylanswiggett.antvolution.Controller;
+import com.dylanswiggett.antvolution.model.Ant;
 import com.dylanswiggett.antvolution.model.Model;
+import com.dylanswiggett.antvolution.util.IntVector;
 import com.dylanswiggett.antvolution.util.Vector;
 
-
 public class View implements Runnable {
-	private static final String TITLE = "Ant Wars RTS v. 0.0.00.0.002   (c)2013";
+	private static final String TITLE = "Ant-volution dev";
 
 	private Model model;
 	private Controller controller;
@@ -61,7 +64,7 @@ public class View implements Runnable {
 			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f);
 			// GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
-			GL11.glClearColor(0.0f, 0.0f, 0.0f, 1f);
+			GL11.glClearColor(1.0f, 1.0f, 1.0f, 1f);
 		}
 
 		try {
@@ -74,20 +77,34 @@ public class View implements Runnable {
 					e.printStackTrace();
 				}
 
-
 				/*
 				 * Draw Code
 				 */
-				
+
 				setCamera(false);
-				
+
 				setCamera(true);
+
+				// for (IntVector v : model.dir.getAllLookVectors()){
+				// model.world.getColorGrid().setColorForOneFrame(100 + v.x, 100
+				// + v.y, Color.BLACK);
+				// }
+
+				synchronized (model.ants) {
+					for (Ant a : model.ants) {
+						model.world.setColorForOneFrame(a.getPosition(), Color.RED);
+					}
+				}
+//				
+//				for (IntVector v : model.dir.getAllLookVectors()){
+//					model.world.setColorForOneFrame(v.toVector().add(new Vector(100, 100)), Color.BLUE);
+//				}
 
 				synchronized (model.getDrawableObjects()) {
 					for (Drawable drawable : model.getDrawableObjects())
 						drawable.draw();
 				}
-				
+
 				/*
 				 * End draw code
 				 */
@@ -110,17 +127,17 @@ public class View implements Runnable {
 	}
 
 	/**
-	 * Initialize the camera for the next frame of OpenGL. Positions the center of the camera
-	 * at controller.getCameraPosition().
+	 * Initialize the camera for the next frame of OpenGL. Positions the center
+	 * of the camera at controller.getCameraPosition().
 	 */
 	private void setCamera(boolean threeD) {
 		Vector viewTranslation = controller.getCameraPosition();
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		
+
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		
+
 		if (threeD) {
 			float whRatio = (float) windowWidth / (float) windowHeight;
 			GLU.gluPerspective(controller.getFOV(), whRatio, 1, 100000);
@@ -129,9 +146,9 @@ public class View implements Runnable {
 					(float) viewTranslation.y, 0, 0, 1, 0);
 		} else {
 			GL11.glLoadIdentity();
-		    GL11.glOrtho(0.0f, (float) windowWidth, (float) windowHeight, 0.0f, 0.0f, 1.0f);
+			GL11.glOrtho(0.0f, (float) windowWidth, (float) windowHeight, 0.0f, 0.0f, 1.0f);
 		}
-		
+
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 	}
