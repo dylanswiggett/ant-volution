@@ -108,6 +108,10 @@ public class Ant implements Drawable{
 		return dirs;
 	}
 	
+	public NeuralNet getNet() {
+		return brain;
+	}
+	
 //	public void look(GameGrid) {
 //		
 //	}

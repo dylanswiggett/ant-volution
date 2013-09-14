@@ -54,4 +54,11 @@ public class Neuron {
 		} else
 			return false;
 	}
+	
+	public Neuron duplicate() {
+		double[] weights = new double[this.weights.length];
+		for (int i = 0; i < weights.length; i++)
+			weights[i] = this.weights[i];
+		return new Neuron(weights);
+	}
 }

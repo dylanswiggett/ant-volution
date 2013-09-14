@@ -30,4 +30,11 @@ public class NeuralLayer {
 			isMutated = isMutated || n.mutate(chance);
 		return isMutated;
 	}
+	
+	public NeuralLayer duplicate() {
+		Neuron[] neurons = new Neuron[this.neurons.length];
+		for (int i = 0; i < neurons.length; i++)
+			neurons[i] = this.neurons[i].duplicate();
+		return new NeuralLayer(neurons);
+	}
 }

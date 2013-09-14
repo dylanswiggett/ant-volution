@@ -1,6 +1,5 @@
 package com.dylanswiggett.antvolution.model.neural;
 
-import java.util.Arrays;
 
 public class NeuralNet {
 //	public static void main(String[] args) {
@@ -51,5 +50,12 @@ public class NeuralNet {
 		for (NeuralLayer layer : layers)
 			isMutated = isMutated || layer.mutate(chance);
 		return isMutated;
+	}
+	
+	public NeuralNet duplicate() {
+		NeuralLayer[] layers = new NeuralLayer[this.layers.length];
+		for (int i = 0; i < layers.length; i++)
+			layers[i] = this.layers[i].duplicate();
+		return new NeuralNet(layers);
 	}
 }

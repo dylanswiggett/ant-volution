@@ -92,6 +92,10 @@ public class GameGrid {
 		}
 		return EMPTY_COLOR;
 	}
+	
+	public boolean isEmpty(Vector p) {
+		return getElement(new IntVector(p)) == null;
+	}
 
 	public int getW() {
 		return w;
